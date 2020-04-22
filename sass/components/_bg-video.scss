@@ -1,0 +1,19 @@
+.bg-video {
+    position: absolute;
+    top     : 0;
+    left    : 0;
+    height  : 100%;
+    width   : 100%;
+    z-index : -1;
+    opacity : .15;
+    overflow: hidden; // it cut overflowing part of &__content that is video
+
+    &__content {
+        height       : 100%;
+        width        : 100%;
+        // object-fit: fill; // it not maintain the aspectratio of video so we use here object-fit:cover
+
+        object-fit: cover; // it works as same like background-size : cover; and it 
+        // fit the video into the content height and width with affecting the  aspectration of video.
+    }
+}

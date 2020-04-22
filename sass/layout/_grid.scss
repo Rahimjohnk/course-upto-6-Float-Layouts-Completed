@@ -1,0 +1,94 @@
+.row {
+    // 1140 is a grid with we want in rem 1rem = 10px here so 
+    // 1140px/10 =114rem
+    max-width: $gird-width;
+
+    @include respond(tab-port) {
+        max-width: 50rem;
+         padding  : 0 3rem;
+    }
+
+    // background-color: #eee;
+    margin             : 0 auto; // 0(top and bottom) auto(left and right) 
+    // center block element inside a block element
+    // margin-bottom: $gutter-vertical;
+
+    &:not(:last-child) {
+        // we select every child except last child
+        margin-bottom: $gutter-vertical; // to set bottom space
+
+        @include respond(tab-port) {
+            margin-bottom: $gutter-vertical-small;
+        }
+    }
+
+    @include clearfix; // to clean that floats and fix the first row hight issue (0px to some height)
+
+    // [class*="col-"] if its apply contains "col-" class
+    // [class$="col-"] if its apply ends with "col-" class
+    // [class^="col-"] if its apply starts with "col-" class
+    [class^="col-"] {
+        //attribute selector
+        // background-color: orangered;
+        float              : left; // if we use float it the parent of the element get coloapsed .row height is 0px
+        // to fix that issue with the help of clearfix mixin.
+
+        &:not(:last-child) {
+            margin-right: $gutter-horizondal;
+
+            @include respond(tab-port) {
+
+                margin-right : 0;
+                margin-bottom: $gutter-vertical-small;
+            }
+        }
+
+        @include respond(tab-port) {
+            // max-width: 50rem;
+            // padding  : 0 3rem;
+            width       : 100% !important; // it over right width : calc((100% - #{$gutter-horizondal}) / 2); this widths
+        }
+    }
+
+
+
+
+    .col-1-of-2 {
+        width : calc((100% - #{$gutter-horizondal}) / 2);
+        // it is a native css most power full function we use sass variable init then use #{}
+        // here 100% is total width
+        // it will moved to  [class^="col-"] { attribute selector}
+        // background-color: orangered;
+        // float           : left; // if we use float it the parent of the element get coloapsed .row height is 0px
+        // // to fix that issue with the help of clearfix mixin.
+
+        // &:not(:last-child) {
+        //     margin-right: $gutter-horizondal;
+        // }
+        // it will moved to  [class^="col-"] { attribute selector}
+    }
+
+    .col-1-of-3 {
+        width: calc((100% - (2 * #{$gutter-horizondal})) / 3);
+    }
+
+    // (2 * .col-1-of-3)/3 + #{$gutter-horizondal}
+    .col-2-of-3 {
+        width: calc(2 * ((100% - (2 * #{$gutter-horizondal})) / 3) + #{$gutter-horizondal});
+    }
+
+    .col-1-of-4 {
+        width: calc((100% - (3 * #{$gutter-horizondal})) / 4);
+    }
+
+    // (2 * .col-1-of-4)/4 + #{$gutter-horizondal}
+    .col-2-of-4 {
+        width: calc(2*((100% - (3 * #{$gutter-horizondal})) / 4) + #{$gutter-horizondal});
+    }
+
+    // (2 * .col-1-of-4)/4 + ( 2 * #{$gutter-horizondal})
+    .col-3-of-4 {
+        width: calc(3 *((100% - (3 * #{$gutter-horizondal})) / 4) + 2 * (#{$gutter-horizondal}));
+    }
+
+}

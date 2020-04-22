@@ -1,0 +1,241 @@
+.card {
+
+    // background-color: orangered;
+    // height          : 50rem;
+
+    //FUNCTIONALITY
+    perspective     : 150rem; // it gives user interactive 3d effects it must be declared in parent.
+    -moz-perspective: 150rem; // if we want use this in mozilar fire fox
+    height          : 52rem; // to specified for hieght collapes issue.
+    position        : relative;
+
+    &__side {
+        // background-color      : orangered;
+        // color                 : #fff;
+        // font-size             : 2rem;
+
+        height    : 52rem;
+        transition: all .8s ease;
+
+        position: absolute;
+        top     : 0;
+        left    : 0; // to position front and back side to back to back using absolute positioning 
+
+        width                      : 100%; // if we use absolute positioning elements will do basically fit their width
+        // so we use width         : 100% here. 
+        -webkit-backface-visibility: hidden;
+        backface-visibility        : hidden; // it actually does to hide the back part of an element
+        // all the elements fo card (that is side) are absolutely positioned so it come out of natural flow so it looses height.
+        // here we use absolute positioning  it cause the height and perspective collapse issue , here we can't use clear fix we use it only floats
+        // here we specify side height equal to card height . then we can see perspective in card side rotation 
+
+        border-radius: 3px;
+        overflow     : hidden; // card__picture img overlapping the card border-radius
+        // so to fix the radius issue using overflow hidden.
+        box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+
+        &--front {
+            background-color: $color-white;
+        }
+
+        &--back {
+            transform: rotateY(180deg); // back side is alread roted 108deg when first we look
+
+            &-1 {
+                background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark);
+            }
+
+            &-2 {
+                background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+            }
+
+            &-3 {
+                background-image: linear-gradient(to right bottom, $color-tertiary-light, $color-tertiary-dark);
+            }
+        }
+    }
+
+
+    &:hover &__side--front {
+        // .card :hover .card__side--front
+        transform: rotateY(-180deg);
+    }
+
+    &:hover &__side--back {
+        // .card :hover .card__side--back
+        transform: rotateY(0);
+    }
+
+    //FRONT SIDE STYLING
+
+    &__picture {
+        background-size      : cover;
+        height               : 23rem;
+        background-blend-mode: screen; // ie, edge not support it
+        //  background-blend-mode it use to blend background image and linear-gradient
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); // -webkit- diff browser support
+        clip-path        : polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        // here we use clip-path so borders are again gets sharp corners so use border radius here
+        border-top-left-radius : 3px;
+        border-top-right-radius: 3px;
+
+        &--1 {
+            background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark),
+                url(../img/nat-5.jpg); // ../img/nat-5.jpg why one level up because as well as sass converted to css
+            // in the end that is css/style.css . so form style.css to one level up is img file so that we wrote
+            // like this.
+        }
+
+        &--2 {
+            background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark),
+                url(../img/nat-6.jpg);
+        }
+
+        &--3 {
+            background-image: linear-gradient(to right bottom, $color-tertiary-light, $color-tertiary-dark),
+                url(../img/nat-7.jpg);
+        }
+    }
+
+    &__heading {
+        font-size     : 2.6rem;
+        font-weight   : 400;
+        text-transform: uppercase;
+        text-align    : right;
+        color         : $color-white;
+        position      : absolute;
+        top           : 12rem;
+        right         : 2rem;
+        width         : 75%; // we decrease the width of this heading till it before break two text line
+        // the we will add  padding values into this class (&__heading-span) it will break the text into two line
+        // but it treated as a single line and we only see spaces in before fo first text and after of last down
+        // text . so we want same space arround these two box means then use box-decoration-break        : clone;
+        // it does these works for us.
+    }
+
+    &__heading-span {
+        // new element not a modifier of heading
+        padding                     : 1rem 1.5rem;
+        -webkit-box-decoration-break: clone; // for chrome support
+        box-decoration-break        : clone;
+
+        &--1 {
+            background-image: linear-gradient(to right bottom,
+                    rgba($color-secondary-light, .85),
+                    rgba($color-secondary-dark, .85));
+        }
+
+        &--2 {
+            background-image: linear-gradient(to right bottom,
+                    rgba($color-primary-light, .85),
+                    rgba($color-primary-dark, .85));
+        }
+
+        &--3 {
+            background-image: linear-gradient(to right bottom,
+                    rgba($color-tertiary-light, .85),
+                    rgba($color-tertiary-dark, .85));
+        }
+    }
+
+    &__details {
+        padding: 3rem;
+
+        ul {
+            list-style: none;
+            width     : 80%;
+            margin    : 0 auto;
+
+            //to centering block element inside of block element use margin : 0(top,bottom) auto(left, right); 
+            li {
+                text-align: center;
+                font-size : 1.5rem;
+                padding   : 1rem;
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid #eee;
+                }
+            }
+        }
+    }
+
+    //BACK SIDE STYLING
+    &__cta {
+        position                                                                    : absolute;
+        top                                                                         : 50%;
+        left                                                                        : 50%;
+        transform                                                                   : translate(-50%, -50%);
+        // button get affted available width so we give width 90% and use text-align: center; for centering the button
+        width                                                                       : 90%;
+        text-align                                                                  : center;
+    }
+
+    &__price-box {
+        text-align   : center;
+        color        : white;
+        margin-bottom: 8rem;
+    }
+
+    &__price-only {
+        font-size     : 1.4rem;
+        text-transform: uppercase;
+    }
+
+    &__price-value {
+        font-weight: 100;
+        font-size  : 6rem;
+    }
+
+    // @include respond(tab-port) { we want to add another condition so we put raw code hrer
+    @media only screen and (max-width: 56.25em),
+    only screen and (hover: none) {
+        // to find touch devices same (hover: hover)
+        //FUNCTIONALITY
+
+        height          : auto;
+        border-radius   : 3px;
+        background-color: $color-white;
+        box-shadow      : 0 1.5rem 4rem rgba($color-black, .15);
+
+        &__side {
+            height    : auto;
+            position  : relative;
+            box-shadow: none;
+
+            &--back {
+                transform: rotateY(0);
+                clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+            }
+        }
+
+
+        &:hover &__side--front {
+            transform: rotateY(0);
+        }
+
+        &__details {
+            padding: 1rem 3rem;
+        }
+
+
+
+        //BACK SIDE STYLING
+        &__cta {
+            position : relative;
+            top      : 0;
+            left     : 0%;
+            transform: translate(0);
+            width    : 100%;
+            padding  : 7rem 4rem 4rem 4rem;
+        }
+
+        &__price-box {
+            margin-bottom: 3rem;
+        }
+
+
+        &__price-value {
+            font-size: 4rem;
+        }
+    }
+}

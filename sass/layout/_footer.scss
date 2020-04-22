@@ -1,0 +1,81 @@
+.footer {
+    background-color: $color-dark-gray3;
+    padding         : 10rem 0;
+    font-size       : 1.4rem;
+    color           : $color-light-gray1;
+
+    @include respond(tab-port) {
+        padding: 8rem 0;
+    }
+
+    &__logo-box {
+        text-align   : center; // b/coz Img is a inline element so that we use just use text-align center to center the image
+        margin-bottom: 8rem;
+
+        @include respond(tab-port) {
+            margin-bottom: 6rem;
+        }
+    }
+
+    &__logo {
+        width : 15rem;
+        height: auto;
+    }
+
+    &__navigation {
+        border-top : 1px solid $color-dark-gray;
+        padding-top: 2rem;
+        display    : inline-block; // to remove border-top extra line 
+        // inline-block does occupies 100% of available width only the one that content needs
+        @include respond(tab-port) {
+            width     : 100%;
+            text-align: center;
+        }
+    }
+
+    &__list {
+        list-style: none;
+    }
+
+    &__item {
+        display: inline-block;
+
+        &:not(:last-child) {
+            margin-right: 1.5rem;
+        }
+    }
+
+    &__link {
+
+        &:link,
+        &:visited {
+            color           : $color-light-gray1;
+            background-color: $color-dark-gray3;
+            text-decoration : none;
+            display         : inline-block;
+            text-transform  : uppercase;
+            transition      : all .2s;
+
+        }
+
+        &:hover,
+        &:active {
+            color     : $color-primary;
+            box-shadow: 0 1rem 2rem rgba($color-black, .4);
+            transform : rotate(5deg) scale(1.3);
+        }
+    }
+
+    &__copyright {
+        border-top    : 1px solid $color-dark-gray;
+        padding-top   : 2rem;
+        // display    : inline-block;
+        width         : 80%;
+        float         : right;
+
+        @include respond(tab-port) {
+            width: 100%;
+            float: none;
+        }
+    }
+}

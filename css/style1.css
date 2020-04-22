@@ -1,0 +1,285 @@
+/*
+COLORS:
+
+Light green : #7ed56f
+Medium green: #55c57a
+Dark green  : #28b485
+
+*/
+/* simple reset universal selector will select each and every element of html and reset the default margin and padding */
+*,
+*::after,
+*::before {
+    margin                 : 0;
+    padding                : 0;
+    /* box-sizing          : border-box;is moved to inside of body
+      this not inherit itself so use inherit keyword */
+    box-sizing             : inherit;
+    /* it forces box-sizing: border-box; to all element inside of body */
+}
+
+html {
+    /* bowser default root font size 16px that is 1rem */
+    /* font-size: 10px; */
+    /* we chang that now root font size is 10px and 1rem = 10px */
+
+    font-size: 62.5%;
+    /* 
+    (10 Required font size /16 Root font size)*100 = 62.5%
+    
+    */
+
+
+
+}
+
+body {
+    font-family       : "Lato", sans-serif;
+    font-weight       : 400;
+    line-height       : 1.7;
+    /* font-size      : 16px; */
+    color             : #777;
+    padding           : 3rem;
+    /*  padding       :  30px */
+    /* this padding arround entire web page body */
+
+    box-sizing: border-box;
+    /* moved from universal selector to here */
+
+}
+
+.header {
+    height: 95vh;
+    /* 95% of view put height. it always hold 95 % view put hight if we could resize the screen */
+    background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.753), rgba(40, 180, 133, 0.74)), url(../img/hero.jpg);
+    /* rgba(126, 213, 111, 0.808) opacity 0.808 that is 80 % that why we can see the background image; */
+    background-size: cover;
+    /*  full image view coverage */
+    background-position: top;
+    /* image top position should stay safe */
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+
+    /* .header is origin for .logo-box class . logo-box positioned based on .header class. */
+    position: relative;
+}
+
+.header__logo-box {
+    /* .header is parent so it position based on .header */
+    position   : absolute;
+    top        : 4rem;
+    left       : 4rem;
+    /* top     : 40px;
+    left       : 40px; */
+}
+
+.header__logo {
+    height   : 3.5rem;
+    /* height: 35px; */
+}
+
+.heading-primary {
+    color         : #fff;
+    text-transform: uppercase;
+
+    backface-visibility: hidden;
+    /* to avoid animation shaky bug */
+    /* margin-bottom: 60px; */
+    margin-bottom   : 6rem;
+}
+
+.heading-primary--main {
+    display: block;
+    /* it occupies 100% with */
+
+    font-size           : 6rem;
+    /* font-size        : 60px; */
+    font-weight         : 400;
+    letter-spacing      : 3.5rem;
+    /* letter-spacing   : 35px; */
+
+    /* animation */
+    animation-name           : moveInLeft;
+    animation-duration       : 1s;
+    animation-timing-function: ease-out;
+
+    /* animation-delay       : 3s; animation starts after 3s
+    animation-iteration-count: 3;  animation repeats 3 times*/
+
+}
+
+.heading-primary--sub {
+    display: block;
+
+    font-size           : 2rem;
+    /* font-size        : 20px; */
+    font-weight         : 700;
+    letter-spacing      : .85rem;
+    /* letter-spacing   : 8.5px; */
+
+    /* animation */
+    animation                : moveInRight 1s ease-out;
+    /* animation-name        : moveInRight;
+    animation-duration       : 1s;
+    animation-timing-function: ease-out; */
+}
+
+.header__text-box {
+    position: absolute;
+    /* .header is parent so it position based on .header */
+    top      : 40%;
+    left     : 50%;
+    transform: translate(-50%, -50%);
+    /* It place us a box exact mid possition */
+
+    text-align: center;
+    /* for btn it's just a text so that  */
+}
+
+@keyframes moveInLeft {
+    0% {
+        opacity     : 0;
+        transform   : translateX(-10rem);
+        /* transform: translateX(-100px); */
+    }
+
+    80% {
+        transform   : translateX(1rem);
+        /* transform: translateX(10px); */
+    }
+
+    100% {
+        opacity  : 1;
+        transform: translate(0);
+    }
+}
+
+/* .elementToAnimate{
+    animation: yourAnimation 1s 2 1s linear;
+    animation: 'animation name' 'duration' 'iteration-count' 'timing-function'
+} */
+
+@keyframes moveInRight {
+    0% {
+        opacity  : 0;
+        transform: translateX(10rem);
+    }
+
+    80% {
+        transform: translateX(-1rem);
+    }
+
+    100% {
+        opacity  : 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity  : 0;
+        transform: translateY(10rem);
+    }
+
+    100% {
+        opacity  : 1;
+        transform: translate(0);
+    }
+}
+
+/* btn initial states */
+.btn:link,
+.btn:visited {
+    text-transform : uppercase;
+    text-decoration: none;
+
+    /* padding        : 15px 40px; */
+    padding           : 1.5rem 4rem;
+    /* padding        : topbottom leftright */
+    display           : inline-block;
+    /*  <a href="#" class="btn btn-white" > it is inline element
+        so it work like normal text so using
+        display: inline-block it gives some padding or height to that 
+        element
+    */
+    border-radius: 10rem;
+
+    transition: all .2s;
+    /* Initiate animation */
+
+    position     : relative;
+    /* ref of btn::after positioning */
+
+    font-size: 1.6rem;
+}
+
+.btn--white {
+    color           : #777;
+    background-color: #fff;
+}
+
+.btn:hover {
+    transform    : translateY(-3px);
+    box-shadow   : 0 1rem 2rem rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0(x) 10px(y) 20px(blur) rgba(0, 0, 0, 0.2); (color with 20% opacity) */
+}
+
+.btn:active {
+    transform    : translateY(-1px);
+    /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); */
+    box-shadow   : 0 .5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+
+
+.btn::after {
+    content: "";
+    /* should required content '' */
+    display: inline-block;
+    /* btn is inline block so */
+
+    height: 100%;
+    /* same as that btn height so 100% */
+    width: 100%;
+    /* same as that btn width so 100% */
+    /* border-radius: 100px; */
+    border-radius   : 10rem;
+    /* same as that btn border-radius */
+
+    /* we want behind the btn so use obsolute positioning 
+    relative to btn */
+    position: absolute;
+    top     : 0;
+    left    : 0;
+    z-index : -1;
+
+    /* we use animation here so that */
+    transition: all .4s;
+}
+
+.btn--white::after {
+    background-color: #fff;
+    /* same as that btn  background-color  */
+}
+
+.btn:hover::after {
+    /* after btn:hover action */
+    transform   : scaleX(1.4) scaleY(1.6);
+    opacity     : 0;
+}
+
+.btn--animated {
+    animation: moveInBottom .5s ease-out .75s;
+    /* .75s delay time . it wait till .75s then apply animation */
+    /* when ever page get load .btn-animated button show without animation effect at begining
+    then after .75s delay it will on action. we simply fix that with 
+    animation fill mode: backwards it will automatically apply the styles of the 
+    0% 
+    0% {
+        opacity  : 0;
+        transform: translateY(100px);
+    }
+    before the animation starts
+     */
+    animation-fill-mode: backwards;
+
+}

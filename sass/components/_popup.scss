@@ -1,0 +1,124 @@
+.popup {
+    height          : 100vh;
+    width           : 100%;
+    position        : fixed;
+    top             : 0;
+    left            : 0;
+    background-color: rgba($color-black, .8);
+    z-index         : 3000;
+
+    // display: none; we cant use animations so that 
+    // initial state
+    opacity   : 0; // content are all in there 
+    visibility: hidden; // content also hidden so that
+    // initial state
+    transition: all .3s;
+
+    // -webkit-backdrop-filter: blur(10px);
+    // backdrop-filter        : blur(10px); // it do to blur the background it works in chrome now
+    // background-color       : rgba($color-black, .3); // for testing
+    
+    @supports (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px)) {
+        // if browser supports these two means the blow codes are applied.
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter        : blur(10px); // it do to blur the background it works in chrome now
+        background-color       : rgba($color-black, .3); // over right when it supports 
+    }
+
+
+    &__content {
+        @include absCenter;
+        width: 75%;
+
+        background-color: white;
+        box-shadow      : 0 2rem 4rem rgba($color-black, .2);
+        border-radius   : 3px;
+        overflow        : hidden; // to see the border-radius 
+
+        // height          : 50rem; in popups we used display table and table-cell for put correct display addopted height. 
+        display            : table;
+        // height          : 50rem;
+
+        //initial state
+        opacity  : 0;
+        transform: translate(-50%, -50%) scale(.25); // to scale down and we can't specified tow transform props so that we over ride the transfrom prop. 
+        //initial state
+        transition: all .5s .2s; //.2s is transition delay
+    }
+
+    &__left {
+        width: 33.333333%;
+
+        // float      : left;
+        display       : table-cell; // it parent &__content has  display            : table; browser gives same height for both cells
+        // float      : left;
+    }
+
+    &__right {
+        width: 66.6666667%;
+
+        // float      : left;
+        display       : table-cell; // it parent &__content has  display            : table; browser gives same height for both cells
+        vertical-align: middle; // vettically align middle does element to be in mid position
+        // float      : left;
+        padding       : 3rem 5rem;
+    }
+
+    &__img {
+        display: block;
+        width  : 100%; // it occupies entire content width
+    }
+
+    &__text {
+        font-size    : 1.4rem;
+        margin-bottom: 4rem;
+
+        -moz-column-count: 2;
+        -moz-column-gap  : 4rem; //1em = 14px therefore 1.4rem;
+        -moz-column-rule : 1px solid $color-light-gray1;
+
+        column-count: 2; // to create a 2 col of text
+        column-gap  : 4rem; //default column-gap is 1em = here 1.4rem therefore 14px; b/c em is if specified in length
+        column-rule : 1px solid $color-light-gray1;
+
+        -moz-hyphens   : auto;
+        -ms-hyphens    : auto;
+        -webkit-hyphens: auto;
+        hyphens        : auto; // <html lang="en"> then only it works
+    }
+
+    //open stats
+    &:target {
+        // anchor tag click and it pointing to the target that time it execute
+        opacity   : 1; // popup visible state.
+        visibility: visible;
+    }
+
+    //open stats
+    &:target &__content {
+        opacity  : 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    &__close {
+        // X button
+
+        &:link,
+        &:visited {
+            font-size      : 3rem;
+            color          : $color-dark-gray;
+            position       : absolute; //it's parent popup__right doesn't have defined position. so that popup__content is its parent and popup__content have defined position.;
+            top            : 2.5rem;
+            right          : 2.5rem;
+            text-decoration: none;
+            display        : inline-block;
+            line-height    : 1; // to get ridet of default line-height
+            transition     : all .2s;
+        }
+
+        &:hover {
+            color: $color-primary;
+        }
+
+    }
+}

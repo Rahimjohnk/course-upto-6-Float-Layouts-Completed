@@ -1,0 +1,131 @@
+.form {
+    &__group:not(:last-child) {
+        margin-bottom: 2rem;
+    }
+
+    &__input {
+        font-size          : 1.5rem;
+        font-family        : inherit; // browser change the default font-family for input box so we will use 
+        // font-family     : inherit; to inherit the default font-family as we are using website level
+        // it will take autometically Lato font from parent;
+        color: inherit; // basically input props are not inherited we put then in inherit to inherit 
+        // the default values. 
+        padding         : 1.5rem 2rem;
+        background-color: rgba($color-white, .5);
+        border-radius   : 2px;
+        border          : none;
+        border-bottom   : 3px solid transparent; // when we in focus state it added 3px solid $color-primary
+        // it add 3px so input boxes moved little bit upper or down so we add 3px solid transparent for initial 
+        // state.
+        width     : 90%;
+        display   : block;
+        transition: all .3s;
+
+        @include respond(tab-port) {
+            width: 100%;
+        }
+
+        &:focus {
+            outline      : none; // it removes the blue border form the input box.
+            box-shadow   : 0 1rem 2rem rgba($color-black, .1);
+            border-bottom: 3px solid $color-primary;
+
+            &:invalid {
+                border-bottom: 3px solid $color-secondary-dark;
+            }
+        }
+
+        // &:focus:invalid {
+        //     border-bottom: 3px solid $color-secondary-dark;
+        // }
+
+        &::-webkit-input-placeholder {
+            // psudo element to change the colot of place holder
+            color: $color-dark-gray2;
+        }
+
+    }
+
+
+
+    &__label {
+        font-size           : 1.2rem;
+        font-weight         : 700;
+        margin-left         : 2rem;
+        margin-top          : 0.7rem;
+        display             : block; // if you want to use box-model 
+        // props(margin-left: 2rem; margin-top : 0.7rem;) the use display bolck
+        transition          : all .3s;
+
+    }
+
+    &__input:placeholder-shown+&__label {
+        // + json adjacent sibling selector it select first sibling
+        // ~ it select all the other siblings
+        opacity   : 0; // element is stil be on the page it not gone.
+        visibility: hidden; // element totally gone form the bage. we cant animate without opacity so we added here.
+        transform : translateY(-4rem);
+    }
+
+    &__radio-group {
+        width  : 49%;
+        display: inline-block; // we would not create line breaks in b/w radio buttons.
+
+        @include respond(tab-port) {
+            width        : 100%;
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__radio-input {
+        display: none;
+    }
+
+    &__radio-label {
+        font-size   : $default-font-size;
+        cursor      : pointer;
+        position    : relative;
+        padding-left: 4.5rem;
+    }
+
+    &__radio-button {
+        height       : 3rem;
+        width        : 3rem;
+        border       : 5px solid $color-primary;
+        border-radius: 50%;
+        display      : inline-block;
+        position     : absolute; // its parent is &__radio-label
+        top          : -.4rem;
+        left         : 0;
+
+        &::after {
+            //just we want circule in perfect mid of radio button outer circule
+            content         : ""; // should used for ::after psudo element
+            display         : block;
+            //if we use     ::after psudo classes then should use there two properties  content: ""; display: block;
+            height          : 1.3rem;
+            width           : 1.3rem;
+            border-radius   : 50%;
+            background-color: $color-primary;
+            position        : absolute; // its parent is &__radio-button but &__radio-button is position : absolute; so no problem
+            top             : 50%;
+            left            : 50%;
+            transform       : translate(-50%, -50%);
+            opacity         : 0; // initial stage
+            transition      : opacity .3s;
+        }
+    }
+
+    &__radio-input:checked~&__radio-label &__radio-button::after {
+        // &__radio-label sibiling and &__radio-button child
+        // all radio button has :checked psudo class we can use that 
+        opacity                 : 1; // when was clicked
+    }
+
+    // <input type="radio" class="form__radio-input" id="large" name="size">
+    //       <label for="large" class="form__radio-label">
+    //               <span class="form__radio-button"></span>
+    //                  Large tour groups
+    //       </label>
+
+}

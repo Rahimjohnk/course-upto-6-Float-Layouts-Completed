@@ -1,0 +1,106 @@
+.story {
+    width           : 75%;
+    margin          : 0 auto;
+    box-shadow      : 0 3rem 6rem rgba($color-black, .1);
+    background-color: rgba($color-white, .5);
+    border-radius   : 3px;
+    padding         : 6rem;
+    font-size       : $default-font-size;
+    padding-left    : 9rem; // actual padding is 6rem and &__shape element transform : translateX(-3rem) space b/w story__shape and story__text 
+    // so the round shape moves left side of an actual padding so the we give extra padding on left side that is
+    // padding-left    : 6rem + 3rem = 9rem;
+
+    //padding       : 6rem; means padding: 6rem,6rem,6rem,6rem. therefore 6rem+3rem(transform: translateX(-3rem))=padding-left    : 9rem
+    transform       : skewX(-12deg);
+
+    // &>* {  < child selector * all direct child selection (&__shape and  &__text direct)
+
+    //     transform            : skewX(12deg); skewX(12deg) is not working in &__shape child b/c 
+    // it has already transform : translateX(-3rem) animation prop and we can use one transform prop 
+    // in one selector so here we cant do select all direct child and apply skewx(-12deg).
+    // so we can use separately like this.
+    // In   &__shape {  transform  : translateX(-3rem) skewX(12deg);}
+    // In   &__text { transform    : skewX(12deg);}
+    // }
+
+    @include respond(tab-port) {
+        width       : 100%;
+        padding     : 4rem;
+        padding-left: 7rem;
+    }
+
+    @include respond(phone) {
+        transform: skewX(0);
+    }
+
+    &__shape {
+        width                : 15rem;
+        height               : 15rem;
+        float                : left;
+        // -webkit-clip-path    : circle(50% at 50% 50%);
+        // clip-path            : circle(50% at 50% 50%); // if we want element look like circle the use clip-path
+        // -webkit-shape-outside: circle(50% at 50% 50%);
+        // shape-outside        : circle(50% at 50% 50%); // it defined where the content flows arround the element.
+        // shape-outside     : circle(50% (radious that is half of width and height that is 7.5rem) at 50% 50% (exact center point of circle));
+        // It only works when elements which actually floated and has dimension(width and height) too. here this element is floated.
+        transform                              : translateX(-3rem) skewX(12deg);
+        //we can't use more than one transform : translate property . so that we here can't use direct child
+        position                               : relative;
+
+        overflow: hidden;
+        border-radius: 50%;
+
+        @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)){
+            -webkit-clip-path    : circle(50% at 50% 50%);
+            clip-path            : circle(50% at 50% 50%); // if we want element look like circle the use clip-path
+            -webkit-shape-outside: circle(50% at 50% 50%);
+            shape-outside        : circle(50% at 50% 50%); // it defined where the content flows arround the element.
+            border-radius: none;
+        }
+
+        @include respond(phone) {
+            transform: translateX(-3rem) skewX(0);
+        }
+    }
+
+    &__img {
+        height                : 100%; // it inherits parent height that is  height: 15rem;
+        // width              : 100%;
+        transform             : translateX(-4rem) scale(1.4); //140% initial state
+        // backface-visibility: hidden;
+        transition            : all .5s;
+    }
+
+    &__text {
+        transform: skewX(12deg);
+
+        @include respond(phone) {
+            transform: skewX(0);
+        }
+    }
+
+    &__caption {
+        position              : absolute;
+        top                   : 50%;
+        left                  : 50%;
+        transform             : translate(-50%, 20%); // caption name text initial position
+        color                 : #fff;
+        font-size             : 1.7rem;
+        text-transform        : uppercase;
+        text-align            : center;
+        opacity               : 0; // caption name text initial position
+        transition            : all .5s;
+        // backface-visibility: hidden;
+        //just for hidden that small last shake
+    }
+
+    &:hover &__caption {
+        opacity  : 1;
+        transform: translate(-50%, -50%);
+    }
+
+    &:hover &__img {
+        transform: translateX(-4rem) scale(1);
+        filter   : blur(3px) brightness(80%); // image blur
+    }
+}

@@ -1,0 +1,158 @@
+/* btn initial states */
+
+
+.btn {
+
+    &,
+    // these props are apply .btn class to
+    &:link,
+    &:visited {
+        text-transform : uppercase;
+        text-decoration: none;
+
+        /* padding        : 15px 40px; */
+        padding           : 1.5rem 4rem;
+        /* padding        : topbottom leftright */
+        display           : inline-block;
+        /*  <a href="#" class="btn btn-white" > it is inline element
+            so it work like normal text so using
+            display: inline-block it gives some padding or height to that 
+            element
+        */
+        border-radius: 10rem;
+
+        transition: all .2s;
+        /* Initiate animation */
+
+        position     : relative;
+        /* ref of btn::after positioning */
+
+        font-size: $default-font-size;
+
+        //changes for the <button> element
+        border: none;
+        cursor: pointer;
+    }
+
+    &--white {
+        color           : $color-dark-gray;
+        background-color: $color-white;
+
+        &::after {
+            background-color: $color-white;
+            /* same as that btn  background-color  */
+        }
+    }
+
+    &--green {
+        color           : $color-white;
+        background-color: $color-primary;
+
+        &::after {
+            background-color: $color-primary;
+            /* same as that btn  background-color  */
+        }
+    }
+
+    &:hover {
+        transform : translateY(-3px);
+        box-shadow: 0 1rem 2rem rgba($color-black, 0.2);
+
+        /* box-shadow: 0(x) 10px(y) 20px(blur) rgba(0, 0, 0, 0.2); (color with 20% opacity) */
+        &            ::after {
+            /* after btn:hover action */
+            transform   : scaleX(1.4) scaleY(1.6);
+            opacity     : 0;
+        }
+    }
+
+    &:active,
+    &:focus {
+        outline      : none; // it removes the button blue line when it focused.
+        transform    : translateY(-1px);
+        /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); */
+        box-shadow   : 0 .5rem 1rem rgba($color-black, 0.2);
+    }
+
+    &::after {
+        content: "";
+        /* should required content '' */
+        display: inline-block;
+        /* btn is inline block so */
+
+        height: 100%;
+        /* same as that btn height so 100% */
+        width: 100%;
+        /* same as that btn width so 100% */
+        /* border-radius: 100px; */
+        border-radius   : 10rem;
+        /* same as that btn border-radius */
+
+        /* we want behind the btn so use obsolute positioning 
+        relative to btn */
+        position: absolute;
+        top     : 0;
+        left    : 0;
+        z-index : -1;
+
+        /* we use animation here so that */
+        transition: all .4s;
+    }
+
+    // &--white::after {
+    //     background-color: $color-white;
+    //     /* same as that btn  background-color  */
+    // }
+
+    // &:hover::after {
+    //     /* after btn:hover action */
+    //     transform   : scaleX(1.4) scaleY(1.6);
+    //     opacity     : 0;
+    // }
+
+    &--animated {
+        animation: moveInBottom .5s ease-out .75s;
+        /* .75s delay time . it wait till .75s then apply animation */
+        /* when ever page get load .btn-animated button show without animation effect at begining
+        then after .75s delay it will on action. we simply fix that with 
+        animation fill mode: backwards it will automatically apply the styles of the 
+        0% 
+        0% {
+            opacity  : 0;
+            transform: translateY(100px);
+        }
+        before the animation starts
+         */
+        animation-fill-mode: backwards;
+
+    }
+}
+
+.btn-text {
+
+    &:link,
+    &:visited {
+        font-size      : $default-font-size;
+        color          : $color-primary;
+        text-decoration: none;
+        display        : inline-block; // so that box-modal applied here so we use padding
+        border-bottom  : 1px solid $color-primary;
+        padding        : 3px;
+
+        transition: all .2s;
+    }
+
+    &:hover {
+        color           : $color-white;
+        background-color: $color-primary;
+        box-shadow      : 0 1rem 2rem rgba($color-black, .15);
+        transform       : translateY(-2px);
+    }
+
+    &:active {
+        box-shadow: 0 .5rem 2rem rgba($color-black, .15);
+        transform : translateY(0);
+    }
+
+
+}

@@ -1,0 +1,95 @@
+.header {
+    // height: 95vh;
+    height: 85vh;
+    /* 95% of view put height. it always hold 95 % view put hight if we could resize the screen */
+    background-image:
+        linear-gradient(to right bottom,
+            rgba($color-primary-light, 0.8),
+            rgba($color-primary-dark, 0.8)),
+        url(../img/hero.jpg);
+    /* rgba(126, 213, 111, 0.808) opacity 0.808 that is 80 % that why we can see the background image; */
+    background-size: cover;
+    /*  full image view coverage */
+    background-position: top;
+    /* image top position should stay safe */
+    // -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+    // clip-path        : polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+
+    @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+        clip-path        : polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+        height: 95vh;
+    }
+
+    // hero.jpg resolution hight
+    // hero-small.jpg resolution low
+    // dpi dots per inch
+    // high resolution 2x screens 
+    //  min-width : 600px from 600px to infinity
+    // all the mobile screens are 2x screens that we will prevent high resolution images to download 
+    // in mobile devices so that here we prevent using min-width                : 600px;
+    // so that high resolution image will apply only 2x (min-resolution         : 192dpi) screen as well as
+    // with of device has 600px above.
+    // , means or operator
+    // media queries always in em
+    // 1em = 16px;
+    // 600px/16 = 37.5em
+    // 2000/16 = 125em
+    //min-resolution : 192dpi === -webkit-min-device-pixel-ratio: 2 (both to pointing 2x screens)
+    @media only screen and (min-resolution : 192dpi) and (min-width : 37.5em),
+    only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width : 37.5em), // for safar browser support
+    only screen and (min-width : 125em) {
+        background: linear-gradient(to right bottom,
+                rgba($color-secondary-light, 0.8),
+                rgba($color-secondary-light, 0.8)),
+            url(../img/hero.jpg);
+    }
+    // @media (min-resolution : 192dpi) and (min-width : 600px),
+    // (min-width : 2000px) {
+    //     background: linear-gradient(to right bottom,
+    //             rgba($color-secondary-light, 0.8),
+    //             rgba($color-secondary-light, 0.8)),
+    //         url(../img/hero.jpg);
+    // }
+
+    // @media (min-width : 2000px) {
+    //     background: linear-gradient(to right bottom,
+    //             rgba($color-secondary-light, 0.8),
+    //             rgba($color-secondary-light, 0.8)),
+    //         url(../img/hero.jpg);
+    // }
+
+    @include respond(phone) {
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+        clip-path        : polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+    }
+
+    /* .header is origin for .logo-box class . logo-box positioned based on .header class. */
+    position: relative;
+
+    &__logo-box {
+        /* .header is parent so it position based on .header */
+        position   : absolute;
+        top        : 4rem;
+        left       : 4rem;
+        /* top     : 40px;
+        left       : 40px; */
+    }
+
+    &__logo {
+        height   : 3.5rem;
+        /* height: 35px; */
+    }
+
+    &__text-box {
+        position: absolute;
+        /* .header is parent so it position based on .header */
+        top      : 40%;
+        left     : 50%;
+        transform: translate(-50%, -50%);
+        /* It place us a box exact mid possition */
+
+        text-align: center;
+        /* for btn it's just a text so that  */
+    }
+}

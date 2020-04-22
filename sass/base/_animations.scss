@@ -1,0 +1,50 @@
+@keyframes moveInLeft {
+    0% {
+        opacity     : 0;
+        transform   : translateX(-10rem);
+        /* transform: translateX(-100px); */
+    }
+
+    80% {
+        transform   : translateX(1rem);
+        /* transform: translateX(10px); */
+    }
+
+    100% {
+        opacity  : 1;
+        transform: translate(0);
+    }
+}
+
+/* .elementToAnimate{
+    animation: yourAnimation 1s 2 1s linear;
+    animation: 'animation name' 'duration' 'iteration-count' 'timing-function'
+} */
+
+@keyframes moveInRight {
+    0% {
+        opacity  : 0;
+        transform: translateX(10rem);
+    }
+
+    80% {
+        transform: translateX(-1rem);
+    }
+
+    100% {
+        opacity  : 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity  : 0;
+        transform: translateY(10rem);
+    }
+
+    100% {
+        opacity  : 1;
+        transform: translate(0);
+    }
+}

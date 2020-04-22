@@ -1,0 +1,94 @@
+@mixin clearfix {
+    &::after { // psudo element
+        content: ""; // we don't wanna see that element in the template. // it should here
+        display: table; // is the standared way
+        clear  : both; // clear both left right float 
+    }
+}
+
+@mixin absCenter {
+    position : absolute;
+    top      : 50%;
+    left     : 50%;
+    transform: translate(-50%, -50%);
+}
+
+//MEDIA QUERY MANAGER
+/*
+0 - 600px   : Phone (max-width)
+600 - 900px :   Tablet portrait (max-width)
+900 - 1200px:  Tablet landscape (max-width)
+[1200 - 1800px] id where our normal styles apply
+1800px + : Big destops (min-width)
+*/
+// with the help of @content directive we can pass required entier block of code(props)
+// @mixin respond-phone {
+//     @media (max-width: 600px) {
+//         @content
+//     }
+
+//     ;
+// }
+
+/*
+$brackpoint arguement choices:
+ phone
+ tab-port
+ tab-land
+ big-desktop
+
+ we can't use px b/c if user to change browser font size it will affects the media query too.
+
+ ems and rems in media querys they are not affected by root font size setting html{font-size: 62.5%;}.
+
+ //1rem and 1em in a media query is always just equal to the font-size which is comming form the browser.
+  that by default 16px s, if the user changed it like 20px then it will be 20px nomatter what we have in 
+ base font definations  html{font-size: 62.5%;}.
+ rems are faild most of browser so 
+ em is best choise for media queries so that 
+ 1em 16px;
+
+ media query ORDER:Base + typography > General layout + grid > page layout > components 
+*/
+
+@mixin respond($brackpoin) {
+    @if $brackpoin==phone {
+        @media only screen and (max-width: 37.5em) { // (only screen ) media query gets only apply screens not for print screens
+            // 1em 16px; 
+            // then this 37.5em like relative units converted to pxs 
+            // and will be adapted to the font size that the user sets for the browsers 
+            // 600/16  = 37.5em
+            @content
+        }
+
+        ;
+    }
+
+    @if $brackpoin==tab-port {
+        @media only screen and (max-width: 56.25em) {
+            // 900/16 = 56.25em
+            @content
+        }
+
+        ;
+    }
+
+    @if $brackpoin==tab-land {
+        @media only screen and (max-width: 75em) {
+            // 1200/16 = 75em
+            @content
+        }
+
+        ;
+    }
+
+    @if $brackpoin==big-desktop {
+        @media only screen and (min-width: 112.5em) {
+            // 1800/16 = 112.5em
+            @content
+        }
+
+        ;
+    }
+
+}

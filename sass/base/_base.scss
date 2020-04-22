@@ -1,0 +1,84 @@
+*,
+*::after,
+*::before {
+    margin                 : 0;
+    padding                : 0;
+    /* box-sizing          : border-box;is moved to inside of body
+      this not inherit itself so use inherit keyword */
+    box-sizing             : inherit;
+    /* it forces box-sizing: border-box; to all element inside of body */
+}
+
+html {
+    /* bowser default root font size 16px that is 1rem */
+    /* font-size: 10px; */
+    /* we chang that now root font size is 10px and 1rem = 10px */
+    // this defines what 1rem is
+    font-size: 62.5%;
+    /* 
+    (10 Required font size /16 Root font size)*100 = 62.5%
+    */
+
+    // @include respond-phone {
+    //     font-size: 50%;
+    // }
+
+    // @include respond(phone) {
+    //     font-size: 50%;
+    // }
+
+
+
+
+    @include respond(tab-land) {
+        // width < 1200?
+        font-size: 56.26%; //1 rem => 9px 9px/16px =0.5626 => 0.5626*100=> 56.26%;
+    }
+
+    // if width is 500px means both phone and tab-port was apply so that  we simply removed that 
+    // to avoid confilct each other so code order matters
+    // in media query always follows the order larger one( width < 1200?) is before and smaller one(width < 900?) is after
+    @include respond(tab-port) {
+        // width < 900?
+        font-size: 50%; //1 rem =>8px  8px/16px =0.50 => 0.50*100 => 50%;
+    }
+
+    // @include respond(phone) {
+    //     // width < 600?
+    //     font-size: 30%; // we want 30% so that => (30/100)*16 => 0.3*16=> 4.8px => so that 1rem = 4.8px;
+    // }
+
+    @include respond(big-desktop) {
+        // width > 1800?
+        font-size: 75%; //1 rem => 12px 12px/16px =75%;
+    }
+}
+
+//The box-sizing property allows us to include the padding and border in an element's total width and height.
+//If you set box-sizing: border-box; on an element padding and border are included in the width and height:
+
+
+body {
+    // these codes are typography so it moved to typography file
+    // font-family       : "Lato", sans-serif;
+    // font-weight       : 400;
+    // line-height       : 1.7;
+    // /* font-size      : 16px; */
+    // color             : $color-dark-gray;
+    // padding           : 3rem;
+    // /*  padding       :  30px */
+    // /* this padding arround entire web page body */
+    // these codes are typography so it moved to typography file
+    box-sizing   : border-box;
+    /* box-sizing: border-box; moved from universal selector to here */
+    padding      : 3rem;
+
+    @include respond(tab-port) {
+        padding: 0;
+    }
+}
+
+::selection { // for text selection
+    background-color: $color-primary;
+    color           : $color-white;
+}
